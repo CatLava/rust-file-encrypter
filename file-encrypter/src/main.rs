@@ -10,7 +10,6 @@ mod cli_options;
 
 
 fn main() {
-    println!("Hello, world!");
     let file_args: cli_options::FileArgs = cli_options::FileArgs::parse();
     // first encrypt a file and see the outpt
     // todo need a check to ensure vec is not null
@@ -20,17 +19,14 @@ fn main() {
         println!("Attempting to decrypt file");
         for path in paths {
             let decyrpted_file = decrypt_file(Path::new(&path), Path::new(&format!("{}.fixed", path)), password.as_bytes());
+            
         }
     } else {
         for path in paths {
             let encyrpted_file = encrypt_file(Path::new(&path), Path::new(&format!("{}.enc", path)), password.as_bytes());
             if file_args.delete_original {
                 fs::remove_file(&path).expect("unable to remove file")
-    
             }
         }
     }
-    // Need to verify return type
-    // Need to get the args added in here for correct usage 
-    //let _ = encrypt_file(Path::new("./test.txt"), Path::new("./encrypted-text.txt"), b"test");
 }
